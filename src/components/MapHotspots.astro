@@ -13,35 +13,6 @@ const parseHotspot = (text: string) => {
 ---
 
 <svg class="hotspots" viewBox="0 0 100 100" preserveAspectRatio="none">
-	<defs>
-		<!-- Empty: light blue -->
-		<linearGradient id="hotspot-empty" x1="0%" y1="0%" x2="0%" y2="100%">
-			<stop offset="0%" stop-color="rgba(147, 197, 253, 0.5)" />
-			<stop offset="100%" stop-color="rgba(147, 197, 253, 0.2)" />
-		</linearGradient>
-		<linearGradient id="hotspot-empty-hover" x1="0%" y1="0%" x2="0%" y2="100%">
-			<stop offset="0%" stop-color="rgba(147, 197, 253, 0.7)" />
-			<stop offset="100%" stop-color="rgba(147, 197, 253, 0.4)" />
-		</linearGradient>
-		<!-- In Construction: medium blue -->
-		<linearGradient id="hotspot-in_construction" x1="0%" y1="0%" x2="0%" y2="100%">
-			<stop offset="0%" stop-color="rgba(59, 130, 246, 0.5)" />
-			<stop offset="100%" stop-color="rgba(59, 130, 246, 0.2)" />
-		</linearGradient>
-		<linearGradient id="hotspot-in_construction-hover" x1="0%" y1="0%" x2="0%" y2="100%">
-			<stop offset="0%" stop-color="rgba(59, 130, 246, 0.7)" />
-			<stop offset="100%" stop-color="rgba(59, 130, 246, 0.4)" />
-		</linearGradient>
-		<!-- Built: dark blue -->
-		<linearGradient id="hotspot-built" x1="0%" y1="0%" x2="0%" y2="100%">
-			<stop offset="0%" stop-color="rgba(30, 64, 175, 0.5)" />
-			<stop offset="100%" stop-color="rgba(30, 64, 175, 0.2)" />
-		</linearGradient>
-		<linearGradient id="hotspot-built-hover" x1="0%" y1="0%" x2="0%" y2="100%">
-			<stop offset="0%" stop-color="rgba(30, 64, 175, 0.7)" />
-			<stop offset="100%" stop-color="rgba(30, 64, 175, 0.4)" />
-		</linearGradient>
-	</defs>
 	{hotspots.map((immobile) => (
 		<a href={`/immobili/${immobile.slug}`} data-title={immobile.data.title} data-status={immobile.data.status}>
 			<polygon
@@ -72,12 +43,12 @@ const parseHotspot = (text: string) => {
 		transition: all 0.2s;
 	}
 
-	.hotspots a[data-status="empty"] polygon { fill: url(#hotspot-empty); }
-	.hotspots a[data-status="empty"]:hover polygon { fill: url(#hotspot-empty-hover); }
-	.hotspots a[data-status="in_construction"] polygon { fill: url(#hotspot-in_construction); }
-	.hotspots a[data-status="in_construction"]:hover polygon { fill: url(#hotspot-in_construction-hover); }
-	.hotspots a[data-status="built"] polygon { fill: url(#hotspot-built); }
-	.hotspots a[data-status="built"]:hover polygon { fill: url(#hotspot-built-hover); }
+	.hotspots a[data-status="empty"] polygon { fill: rgba(147, 197, 253, 0.35); }
+	.hotspots a[data-status="empty"]:hover polygon { fill: rgba(147, 197, 253, 0.55); }
+	.hotspots a[data-status="in_construction"] polygon { fill: rgba(59, 130, 246, 0.35); }
+	.hotspots a[data-status="in_construction"]:hover polygon { fill: rgba(59, 130, 246, 0.55); }
+	.hotspots a[data-status="built"] polygon { fill: rgba(30, 64, 175, 0.35); }
+	.hotspots a[data-status="built"]:hover polygon { fill: rgba(30, 64, 175, 0.55); }
 
 	.hotspots polygon:hover {
 		stroke: rgba(255, 255, 255, 0.8);
