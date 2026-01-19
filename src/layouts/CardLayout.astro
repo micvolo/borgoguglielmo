@@ -228,7 +228,7 @@ const { title } = Astro.props;
 
 	.card-overlay {
 		position: fixed;
-		top: 4rem;
+		top: calc(2.5rem + 4rem);
 		right: 4rem;
 		bottom: 4rem;
 		left: auto;
@@ -248,7 +248,7 @@ const { title } = Astro.props;
 		overflow-y: auto;
 		pointer-events: auto;
 		border-radius: 0.5rem;
-		box-shadow: 0 0 4rem 2rem rgba(255, 255, 255, 0.9);
+		box-shadow: 0 0 5rem 4rem rgba(255, 255, 255, 0.95);
 	}
 
 	.close {
@@ -273,7 +273,7 @@ const { title } = Astro.props;
 
 	@media (max-width: 768px) {
 		.card-overlay {
-			top: 3.5rem;
+			top: calc(2.5rem + 2rem);
 			right: 2rem;
 			bottom: 2rem;
 			left: auto;
