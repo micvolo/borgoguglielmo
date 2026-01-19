@@ -126,6 +126,34 @@ import mapSrc from '../assets/map.png';
 	};
 
 	document.addEventListener('astro:page-load', initMap);
+
+	// Dev tool: Shift+H to toggle hotspot edit mode
+	let hotspotMode = false;
+	let hotspotPoints: string[] = [];
+
+	document.addEventListener('keydown', (e) => {
+		if (e.shiftKey && e.key === 'H') {
+			hotspotMode = !hotspotMode;
+			hotspotPoints = [];
+			console.log(hotspotMode ? '🎯 Hotspot mode ON - click to add points, Shift+H to finish' : '🎯 Hotspot mode OFF');
+			document.body.style.cursor = hotspotMode ? 'crosshair' : '';
+		}
+	});
+
+	document.addEventListener('click', (e) => {
+		if (!hotspotMode) return;
+		const map = document.getElementById('map');
+		const img = map?.querySelector('img');
+		if (!map || !img) return;
+
+		const rect = img.getBoundingClientRect();
+		const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+		const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+
+		hotspotPoints.push(`${x} ${y}`);
+		console.log(`📍 Point ${hotspotPoints.length}: ${x} ${y}`);
+		console.log('📋 All points:\n' + hotspotPoints.join('\n'));
+	});
 </script>
 
 <style>
