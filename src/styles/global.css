@@ -34,8 +34,8 @@ body {
 	font-family: var(--font-family);
 	font-size: var(--font-size-base);
 	line-height: var(--line-height-base);
-	background: var(--charcoal);
-	color: var(--cream);
+	background: var(--cream);
+	color: var(--charcoal);
 	-webkit-font-smoothing: antialiased;
 }
 

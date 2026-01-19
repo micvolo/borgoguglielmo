@@ -5,8 +5,8 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
 	site: 'https://borgoguglielmo.pages.dev',
 	image: {
-		domains: [],
-		remotePatterns: [],
+		layout: 'constrained',
+		responsiveStyles: true,
 	},
 	vite: {
 		css: {
