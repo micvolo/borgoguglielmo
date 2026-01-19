@@ -2,10 +2,10 @@
 title: Villa Rosa
 status: in_construction
 hotspot: |
-  25 30
-  35 30
-  35 40
-  25 40
+  54.4 39.7
+  59.6 39.7
+  59.7 44.5
+  54.4 44.5
 ---
 
 ![Vista esterna di Villa Rosa](https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80)
