@@ -1,12 +1,23 @@
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="537" height="535" viewBox="0 0 537 535"
- preserveAspectRatio="xMidYMid meet">
-<metadata>
-Created by potrace 1.16, written by Peter Selinger 2001-2019
-</metadata>
-<g transform="translate(0.000000,535.000000) scale(0.100000,-0.100000)"
-fill="#000000" stroke="none">
-<path d="M2592 5295 c-168 -184 -171 -441 -6 -624 63 -70 77 -72 131 -20 145
+---
+interface Props {
+	size?: number;
+	color?: string;
+	class?: string;
+}
+
+const { size = 40, color = 'currentColor', class: className } = Astro.props;
+---
+
+<svg
+	class={className}
+	width={size}
+	height={size}
+	viewBox="0 0 537 535"
+	fill={color}
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<g transform="translate(0,535) scale(0.1,-0.1)" stroke="none">
+		<path d="M2592 5295 c-168 -184 -171 -441 -6 -624 63 -70 77 -72 131 -20 145
 142 176 372 72 544 -35 59 -121 155 -137 155 -6 0 -33 -25 -60 -55z M2138
 5262 c-18 -44 -15 -152 6 -192 34 -65 91 -112 163 -134 20 -6 24 -1 39 50 37
 128 -35 256 -165 294 -29 8 -33 6 -43 -18z M3089 5262 c-117 -61 -164 -194
@@ -155,5 +166,5 @@ M409 2696 c-55 -19 -107 -54 -133 -89 -30 -40 -58 -107 -52 -123 6 -15 97 -44
 -128 9 -167 -5z M1677 2376 c-38 -14 -66 -34 -99 -71 -21 -24 -54 -122 -45
 -132 14 -13 125 -15 162 -3 73 24 144 113 145 181 0 22 -6 28 -31 33 -48 9
 -90 7 -132 -8z"/>
-</g>
+	</g>
 </svg>
