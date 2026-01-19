@@ -1,34 +1,51 @@
 ---
-import { Image } from 'astro:assets';
-import MapHotspots from './MapHotspots.astro';
-import mapSrc from '../assets/map.png';
+import { Image } from "astro:assets";
+import MapHotspots from "./MapHotspots.astro";
+import mapSrc from "../assets/map.png";
 ---
 
 <div class="map-container">
 	<div class="map-wrapper" id="map" transition:persist="map">
-		<Image src={mapSrc} alt="Mappa Borgo Guglielmo" quality={80} format="webp" densities={[1]} widths={[mapSrc.width]} />
+		<Image
+			src={mapSrc}
+			alt="Mappa Borgo Guglielmo"
+			quality={100}
+			format="webp"
+			widths={[4000]}
+		/>
 		<MapHotspots />
 	</div>
 </div>
 
 <script>
-	import Panzoom from '@panzoom/panzoom';
+	import Panzoom from "@panzoom/panzoom";
 
 	interface MapElement extends HTMLElement {
 		_panzoom?: ReturnType<typeof Panzoom>;
 		_wheelParent?: HTMLElement;
-		_zoomState?: { targetScale: number; currentScale: number; isAnimating: boolean };
+		_zoomState?: {
+			targetScale: number;
+			currentScale: number;
+			isAnimating: boolean;
+		};
 	}
 
 	const initMap = () => {
-		const map = document.getElementById('map') as MapElement | null;
-		const img = map?.querySelector('img') as HTMLImageElement | null;
+		const map = document.getElementById("map") as MapElement | null;
+		const img = map?.querySelector("img") as HTMLImageElement | null;
 
 		if (!map || !img) return;
 
 		const saveState = (panzoom: ReturnType<typeof Panzoom>) => {
 			const pan = panzoom.getPan();
-			localStorage.setItem('mapState', JSON.stringify({ x: pan.x, y: pan.y, scale: panzoom.getScale() }));
+			localStorage.setItem(
+				"mapState",
+				JSON.stringify({
+					x: pan.x,
+					y: pan.y,
+					scale: panzoom.getScale(),
+				}),
+			);
 		};
 
 		const setupWheel = (panzoom: ReturnType<typeof Panzoom>) => {
@@ -38,14 +55,19 @@ import mapSrc from '../assets/map.png';
 			map._zoomState = map._zoomState || {
 				targetScale: panzoom.getScale(),
 				currentScale: panzoom.getScale(),
-				isAnimating: false
+				isAnimating: false,
 			};
 
 			const state = map._zoomState;
-			const lerp = (start: number, end: number, t: number) => start + (end - start) * t;
+			const lerp = (start: number, end: number, t: number) =>
+				start + (end - start) * t;
 
 			const animateZoom = () => {
-				state.currentScale = lerp(state.currentScale, state.targetScale, 0.04);
+				state.currentScale = lerp(
+					state.currentScale,
+					state.targetScale,
+					0.04,
+				);
 
 				if (Math.abs(state.currentScale - state.targetScale) > 0.001) {
 					panzoom.zoom(state.currentScale, { animate: false });
@@ -58,16 +80,23 @@ import mapSrc from '../assets/map.png';
 				}
 			};
 
-			parent.addEventListener('wheel', (e) => {
-				e.preventDefault();
-				const delta = e.deltaY > 0 ? 0.95 : 1.05;
-				state.targetScale = Math.min(10, Math.max(1.5, state.targetScale * delta));
+			parent.addEventListener(
+				"wheel",
+				(e) => {
+					e.preventDefault();
+					const delta = e.deltaY > 0 ? 0.95 : 1.05;
+					state.targetScale = Math.min(
+						10,
+						Math.max(1.5, state.targetScale * delta),
+					);
 
-				if (!state.isAnimating) {
-					state.isAnimating = true;
-					requestAnimationFrame(animateZoom);
-				}
-			}, { passive: false });
+					if (!state.isAnimating) {
+						state.isAnimating = true;
+						requestAnimationFrame(animateZoom);
+					}
+				},
+				{ passive: false },
+			);
 
 			map._wheelParent = parent;
 		};
@@ -83,7 +112,7 @@ import mapSrc from '../assets/map.png';
 			const winW = window.innerWidth;
 			const winH = window.innerHeight;
 
-			const savedJson = localStorage.getItem('mapState');
+			const savedJson = localStorage.getItem("mapState");
 			const saved = savedJson ? JSON.parse(savedJson) : null;
 			const scale = saved?.scale ?? 1.95;
 			const startX = saved?.x ?? -65;
@@ -95,17 +124,17 @@ import mapSrc from '../assets/map.png';
 				startScale: scale,
 				startX,
 				startY,
-				contain: 'outside',
+				contain: "outside",
 			});
 
 			map._panzoom = panzoom;
 
-			map.addEventListener('panzoomstart', () => {
-				map.classList.add('is-dragging');
+			map.addEventListener("panzoomstart", () => {
+				map.classList.add("is-dragging");
 			});
 
-			map.addEventListener('panzoomend', () => {
-				map.classList.remove('is-dragging');
+			map.addEventListener("panzoomend", () => {
+				map.classList.remove("is-dragging");
 				saveState(panzoom);
 			});
 
@@ -119,16 +148,18 @@ import mapSrc from '../assets/map.png';
 		}
 	};
 
-	document.addEventListener('astro:page-load', initMap);
+	document.addEventListener("astro:page-load", initMap);
 
 	// Dev tool: Shift+P to log current map position and zoom
-	document.addEventListener('keydown', (e) => {
-		if (e.shiftKey && e.key === 'P') {
-			const map = document.getElementById('map') as any;
+	document.addEventListener("keydown", (e) => {
+		if (e.shiftKey && e.key === "P") {
+			const map = document.getElementById("map") as any;
 			if (map?._panzoom) {
 				const pan = map._panzoom.getPan();
 				const scale = map._panzoom.getScale();
-				console.log(`📍 Map position: x=${pan.x.toFixed(0)}, y=${pan.y.toFixed(0)}, scale=${scale.toFixed(2)}`);
+				console.log(
+					`📍 Map position: x=${pan.x.toFixed(0)}, y=${pan.y.toFixed(0)}, scale=${scale.toFixed(2)}`,
+				);
 			}
 		}
 	});
@@ -137,28 +168,32 @@ import mapSrc from '../assets/map.png';
 	let hotspotMode = false;
 	let hotspotPoints: string[] = [];
 
-	document.addEventListener('keydown', (e) => {
-		if (e.shiftKey && e.key === 'H') {
+	document.addEventListener("keydown", (e) => {
+		if (e.shiftKey && e.key === "H") {
 			hotspotMode = !hotspotMode;
 			hotspotPoints = [];
-			console.log(hotspotMode ? '🎯 Hotspot mode ON - click to add points, Shift+H to finish' : '🎯 Hotspot mode OFF');
-			document.body.style.cursor = hotspotMode ? 'crosshair' : '';
+			console.log(
+				hotspotMode
+					? "🎯 Hotspot mode ON - click to add points, Shift+H to finish"
+					: "🎯 Hotspot mode OFF",
+			);
+			document.body.style.cursor = hotspotMode ? "crosshair" : "";
 		}
 	});
 
-	document.addEventListener('click', (e) => {
+	document.addEventListener("click", (e) => {
 		if (!hotspotMode) return;
-		const map = document.getElementById('map');
-		const img = map?.querySelector('img');
+		const map = document.getElementById("map");
+		const img = map?.querySelector("img");
 		if (!map || !img) return;
 
 		const rect = img.getBoundingClientRect();
-		const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-		const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+		const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+		const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
 
 		hotspotPoints.push(`${x} ${y}`);
 		console.log(`📍 Point ${hotspotPoints.length}: ${x} ${y}`);
-		console.log('📋 All points:\n' + hotspotPoints.join('\n'));
+		console.log("📋 All points:\n" + hotspotPoints.join("\n"));
 	});
 </script>
 
