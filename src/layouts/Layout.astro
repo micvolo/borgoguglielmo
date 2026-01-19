@@ -6,9 +6,10 @@ import Map from '../components/Map.astro';
 interface Props {
 	title: string;
 	card?: boolean;
+	cardTitle?: string;
 }
 
-const { title, card = false } = Astro.props;
+const { title, card = false, cardTitle } = Astro.props;
 ---
 
 <!doctype html>
@@ -32,11 +33,14 @@ const { title, card = false } = Astro.props;
 		{card && (
 			<div class="card-overlay" transition:name="overlay">
 				<aside class="card" transition:name="card">
-					<a href="/" class="close" aria-label="Chiudi">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-							<path d="M18 6L6 18M6 6l12 12"/>
-						</svg>
-					</a>
+					<header class="card-header">
+						<h1>{cardTitle || title}</h1>
+						<a href="/" class="close" aria-label="Chiudi">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M18 6L6 18M6 6l12 12"/>
+							</svg>
+						</a>
+					</header>
 					<div class="card-content">
 						<slot />
 					</div>
@@ -117,20 +121,34 @@ const { title, card = false } = Astro.props;
 		pointer-events: auto;
 		border-radius: 0.5rem;
 		box-shadow: 0 0 5rem 4rem rgba(255, 255, 255, 0.95);
+		display: flex;
+		flex-direction: column;
+	}
+
+	.card-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1.5rem 2rem;
+		background: var(--white);
+		border-bottom: 1px solid var(--sand);
+		flex-shrink: 0;
+	}
+
+	.card-header h1 {
+		font-size: var(--font-size-xl);
+		margin: 0;
 	}
 
 	.card-content {
-		height: 100%;
+		flex: 1;
 		overflow-y: auto;
+		padding: 2rem;
 	}
 
 	.close {
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
-		z-index: 10;
-		width: 40px;
-		height: 40px;
+		width: 36px;
+		height: 36px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -138,6 +156,7 @@ const { title, card = false } = Astro.props;
 		border-radius: 50%;
 		color: var(--charcoal);
 		transition: background 0.2s;
+		flex-shrink: 0;
 	}
 
 	.close:hover {
