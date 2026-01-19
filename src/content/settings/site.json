@@ -5,10 +5,5 @@
     "show": true,
     "image": "/src/assets/logo.svg",
     "alt": "Borgo Guglielmo logo"
-  },
-  "header": {
-    "background": "#ffffff",
-    "textColor": "#1a1a1a",
-    "borderColor": "#e5e5e5"
   }
 }

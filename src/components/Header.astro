@@ -3,13 +3,13 @@ import { getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 
 const settings = await getEntry('settings', 'site');
-const { siteName, logo, header } = settings.data;
+const { siteName, logo } = settings.data;
 
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{png,jpg,jpeg,gif,svg,webp}');
 const logoSrc = logo?.image && images[logo.image] ? (await images[logo.image]()).default : null;
 ---
 
-<header style={`background: ${header?.background}; border-color: ${header?.borderColor}; color: ${header?.textColor}`}>
+<header>
 	<a href="/" class="brand">
 		{logo?.show && logoSrc && (
 			<Image class="logo" src={logoSrc} alt={logo.alt || ''} width={20} height={20} />
@@ -27,7 +27,9 @@ const logoSrc = logo?.image && images[logo.image] ? (await images[logo.image]())
 		right: 0;
 		padding: 0.5rem 0.75rem;
 		z-index: 10;
-		border-bottom: 1px solid;
+		background: var(--white);
+		color: var(--charcoal);
+		border-bottom: 1px solid var(--sand);
 	}
 
 	.brand {
@@ -53,7 +55,7 @@ const logoSrc = logo?.image && images[logo.image] ? (await images[logo.image]())
 		right: 0;
 		top: 100%;
 		height: 2rem;
-		background: linear-gradient(to bottom, white, transparent);
+		background: linear-gradient(to bottom, var(--white), transparent);
 		pointer-events: none;
 	}
 </style>

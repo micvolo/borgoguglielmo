@@ -5,7 +5,7 @@ backend:
   repo: micvolo/borgoguglielmo
   branch: main
 
-logo_url: /src/assets/logo.svg
+logo_url: /favicon.svg
 
 media_libraries:
   default:
@@ -36,13 +36,6 @@ collections:
               - { label: Show Logo, name: show, widget: boolean, default: true }
               - { label: Image, name: image, widget: image, required: false }
               - { label: Alt Text, name: alt, widget: string, required: false }
-          - label: Header
-            name: header
-            widget: object
-            fields:
-              - { label: Background Color, name: background, widget: color, default: '#ffffff' }
-              - { label: Text Color, name: textColor, widget: color, default: '#1a1a1a' }
-              - { label: Border Color, name: borderColor, widget: color, default: '#e5e5e5' }
 
   - name: immobili
     label: Immobili
@@ -51,10 +44,10 @@ collections:
     slug: '{{slug}}'
     fields:
       - { label: Title, name: title, widget: string }
+      - { label: Body, name: body, widget: markdown }
       - label: Hotspot (one point per line as "x y")
         name: hotspot
         widget: text
         required: false
         collapsed: true
-      - { label: Body, name: body, widget: markdown }
 

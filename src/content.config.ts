@@ -10,11 +10,6 @@ const settings = defineCollection({
 			image: z.string().optional(),
 			alt: z.string().optional(),
 		}).optional(),
-		header: z.object({
-			background: z.string().default('#ffffff'),
-			textColor: z.string().default('#1a1a1a'),
-			borderColor: z.string().default('#e5e5e5'),
-		}).optional(),
 	}),
 });
 
