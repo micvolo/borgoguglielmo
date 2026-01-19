@@ -1,5 +1,6 @@
 ---
 title: Villa Rosa
+status: in_construction
 hotspot: |
   25 30
   35 30

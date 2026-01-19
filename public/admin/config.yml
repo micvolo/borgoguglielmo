@@ -46,6 +46,14 @@ collections:
     slug: '{{slug}}'
     fields:
       - { label: Title, name: title, widget: string }
+      - label: Status
+        name: status
+        widget: select
+        options:
+          - { label: Empty, value: empty }
+          - { label: In Construction, value: in_construction }
+          - { label: Built, value: built }
+        default: empty
       - { label: Body, name: body, widget: markdown }
       - label: Hotspot (one point per line as "x y")
         name: hotspot
