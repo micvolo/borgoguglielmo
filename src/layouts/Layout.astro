@@ -142,7 +142,7 @@ const { title, card = false, cardTitle } = Astro.props;
 		right: 0;
 		top: 100%;
 		height: 1.5rem;
-		background: linear-gradient(to bottom, white, transparent);
+		background: linear-gradient(to bottom, var(--cream), transparent);
 		pointer-events: none;
 		z-index: 1;
 	}
@@ -156,6 +156,37 @@ const { title, card = false, cardTitle } = Astro.props;
 		flex: 1;
 		overflow-y: auto;
 		padding: 2rem;
+	}
+
+	.card-content :global(h2) {
+		font-size: var(--font-size-lg);
+		margin: 2rem 0 1rem;
+	}
+
+	.card-content :global(h2:first-child) {
+		margin-top: 0;
+	}
+
+	.card-content :global(p) {
+		margin-bottom: 1rem;
+		line-height: var(--line-height-loose);
+	}
+
+	.card-content :global(ul) {
+		margin-bottom: 1rem;
+		padding-left: 1.5rem;
+	}
+
+	.card-content :global(li) {
+		margin-bottom: 0.5rem;
+		line-height: var(--line-height-normal);
+	}
+
+	.card-content :global(img) {
+		width: 100%;
+		height: auto;
+		border-radius: 0.5rem;
+		margin: 1.5rem 0;
 	}
 
 	.close {

@@ -128,7 +128,7 @@ import mapSrc from '../assets/map.png';
 	document.addEventListener('astro:page-load', initMap);
 </script>
 
-<style is:global>
+<style>
 	.map-container {
 		position: absolute;
 		inset: 0;
@@ -140,7 +140,7 @@ import mapSrc from '../assets/map.png';
 		cursor: default !important;
 	}
 
-	.map-wrapper.is-dragging {
+	.map-wrapper:global(.is-dragging) {
 		cursor: grabbing !important;
 	}
 

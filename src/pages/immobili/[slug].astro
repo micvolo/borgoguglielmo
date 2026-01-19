@@ -17,36 +17,3 @@ const { Content } = await immobile.render();
 <Layout title={immobile.data.title} card cardTitle={immobile.data.title}>
 	<Content />
 </Layout>
-
-<style is:global>
-	.card-content h2 {
-		font-size: var(--font-size-lg);
-		margin: 2rem 0 1rem;
-	}
-
-	.card-content h2:first-child {
-		margin-top: 0;
-	}
-
-	.card-content p {
-		margin-bottom: 1rem;
-		line-height: var(--line-height-loose);
-	}
-
-	.card-content ul {
-		margin-bottom: 1rem;
-		padding-left: 1.5rem;
-	}
-
-	.card-content li {
-		margin-bottom: 0.5rem;
-		line-height: var(--line-height-normal);
-	}
-
-	.card-content img {
-		width: 100%;
-		height: auto;
-		border-radius: 0.5rem;
-		margin: 1.5rem 0;
-	}
-</style>
