@@ -1,11 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import MapHotspots from './MapHotspots.astro';
 import mapSrc from '../assets/map.png';
 ---
 
 <div class="map-container">
 	<div class="map-wrapper" id="map" transition:persist="map">
-		<img src={mapSrc.src} alt="Mappa Borgo Guglielmo" width={mapSrc.width} height={mapSrc.height} />
+		<Image src={mapSrc} alt="Mappa Borgo Guglielmo" quality={80} format="webp" densities={[1]} widths={[mapSrc.width]} />
 		<MapHotspots />
 	</div>
 </div>
