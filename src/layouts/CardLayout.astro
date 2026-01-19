@@ -37,10 +37,6 @@ const { title } = Astro.props;
 		</main>
 		<div class="card-overlay" transition:name="overlay">
 			<aside class="card" transition:name="card">
-				<div class="shadow shadow-top"></div>
-				<div class="shadow shadow-right"></div>
-				<div class="shadow shadow-bottom"></div>
-				<div class="shadow shadow-left"></div>
 				<a href="/" class="close" aria-label="Chiudi">
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="M18 6L6 18M6 6l12 12"/>
@@ -249,53 +245,10 @@ const { title } = Astro.props;
 		height: 100%;
 		background: var(--white);
 		color: var(--charcoal);
-		overflow: visible;
+		overflow-y: auto;
 		pointer-events: auto;
 		border-radius: 0.5rem;
-	}
-
-	.card-content {
-		height: 100%;
-		overflow-y: auto;
-		border-radius: 0.5rem;
-	}
-
-	.shadow {
-		position: absolute;
-		pointer-events: none;
-		z-index: -1;
-	}
-
-	.shadow-top {
-		top: -2rem;
-		left: -2rem;
-		right: -2rem;
-		height: 2rem;
-		background: linear-gradient(to top, white, transparent);
-	}
-
-	.shadow-bottom {
-		bottom: -2rem;
-		left: -2rem;
-		right: -2rem;
-		height: 2rem;
-		background: linear-gradient(to bottom, white, transparent);
-	}
-
-	.shadow-left {
-		top: -2rem;
-		bottom: -2rem;
-		left: -2rem;
-		width: 2rem;
-		background: linear-gradient(to left, white, transparent);
-	}
-
-	.shadow-right {
-		top: -2rem;
-		bottom: -2rem;
-		right: -2rem;
-		width: 2rem;
-		background: linear-gradient(to right, white, transparent);
+		box-shadow: 0 0 2rem 1rem rgba(255, 255, 255, 0.8);
 	}
 
 	.close {
