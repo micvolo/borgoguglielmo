@@ -3,7 +3,7 @@
   "siteDescription": "Premium real estate",
   "logo": {
     "show": true,
-    "image": "/src/assets/logo-1.svg",
+    "image": "/src/assets/logo.svg",
     "alt": "Borgo Guglielmo logo"
   },
   "header": {

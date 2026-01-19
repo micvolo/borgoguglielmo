@@ -1,14 +1,18 @@
 ---
 import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 
 const settings = await getEntry('settings', 'site');
 const { siteName, logo, header } = settings.data;
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{png,jpg,jpeg,gif,svg,webp}');
+const logoSrc = logo?.image && images[logo.image] ? (await images[logo.image]()).default : null;
 ---
 
 <header style={`background: ${header?.background}; border-color: ${header?.borderColor}; color: ${header?.textColor}`}>
 	<a href="/" class="brand">
-		{logo?.show && logo?.image && (
-			<img class="logo" src={logo.image} alt={logo.alt || ''} />
+		{logo?.show && logoSrc && (
+			<Image class="logo" src={logoSrc} alt={logo.alt || ''} width={20} height={20} />
 		)}
 		<h1>{siteName}</h1>
 	</a>
