@@ -83,12 +83,11 @@ import mapSrc from '../assets/map.png';
 			const winW = window.innerWidth;
 			const winH = window.innerHeight;
 
-			const defaultScale = 2.5;
 			const savedJson = sessionStorage.getItem('mapState');
 			const saved = savedJson ? JSON.parse(savedJson) : null;
-			const scale = saved?.scale ?? defaultScale;
-			const startX = saved?.x ?? (winW - imgW * defaultScale) / 2;
-			const startY = saved?.y ?? (winH - imgH * defaultScale) / 2;
+			const scale = saved?.scale ?? 1.95;
+			const startX = saved?.x ?? -65;
+			const startY = saved?.y ?? 70;
 
 			const panzoom = Panzoom(map, {
 				maxScale: 10,
