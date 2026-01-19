@@ -24,7 +24,7 @@ const immobili = defineCollection({
 		title: z.string(),
 		description: z.string().optional(),
 		image: z.string().optional(),
-		hotspot: z.array(z.tuple([z.number(), z.number()])).optional(),
+		hotspot: z.string().optional(),
 	}),
 });
 

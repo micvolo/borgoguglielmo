@@ -2,7 +2,14 @@
 import { getCollection } from 'astro:content';
 
 const immobili = await getCollection('immobili');
-const hotspots = immobili.filter((i) => i.data.hotspot?.length);
+const hotspots = immobili.filter((i) => i.data.hotspot?.trim());
+
+const parseHotspot = (text: string) => {
+	return text.trim().split('\n').map(line => {
+		const [x, y] = line.trim().split(/\s+/).map(Number);
+		return `${x},${y}`;
+	}).join(' ');
+};
 ---
 
 <svg class="hotspots" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -19,7 +26,7 @@ const hotspots = immobili.filter((i) => i.data.hotspot?.length);
 	{hotspots.map((immobile) => (
 		<a href={`/immobili/${immobile.slug}`} data-title={immobile.data.title}>
 			<polygon
-				points={immobile.data.hotspot!.map(([x, y]) => `${x},${y}`).join(' ')}
+				points={parseHotspot(immobile.data.hotspot!)}
 				data-id={immobile.slug}
 			/>
 		</a>
