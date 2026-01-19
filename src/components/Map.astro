@@ -14,12 +14,68 @@ import mapSrc from '../assets/map.png';
 <script>
 	import Panzoom from '@panzoom/panzoom';
 
+	interface MapElement extends HTMLElement {
+		_panzoom?: ReturnType<typeof Panzoom>;
+		_wheelParent?: HTMLElement;
+		_zoomState?: { targetScale: number; currentScale: number; isAnimating: boolean };
+	}
+
 	const initMap = () => {
-		const map = document.getElementById('map') as HTMLElement & { _panzoom?: ReturnType<typeof Panzoom> };
+		const map = document.getElementById('map') as MapElement | null;
 		const img = map?.querySelector('img') as HTMLImageElement | null;
 
 		if (!map || !img) return;
-		if (map._panzoom) return;
+
+		const setupWheel = (panzoom: ReturnType<typeof Panzoom>) => {
+			const parent = map.parentElement;
+			if (!parent || map._wheelParent === parent) return;
+
+			map._zoomState = map._zoomState || {
+				targetScale: panzoom.getScale(),
+				currentScale: panzoom.getScale(),
+				isAnimating: false
+			};
+
+			const state = map._zoomState;
+			const lerp = (start: number, end: number, t: number) => start + (end - start) * t;
+
+			const saveState = () => {
+				const pan = panzoom.getPan();
+				sessionStorage.setItem('mapState', JSON.stringify({ x: pan.x, y: pan.y, scale: panzoom.getScale() }));
+			};
+
+			const animateZoom = () => {
+				state.currentScale = lerp(state.currentScale, state.targetScale, 0.04);
+
+				if (Math.abs(state.currentScale - state.targetScale) > 0.001) {
+					panzoom.zoom(state.currentScale, { animate: false });
+					requestAnimationFrame(animateZoom);
+				} else {
+					state.currentScale = state.targetScale;
+					panzoom.zoom(state.targetScale, { animate: false });
+					state.isAnimating = false;
+					saveState();
+				}
+			};
+
+			parent.addEventListener('wheel', (e) => {
+				e.preventDefault();
+				const delta = e.deltaY > 0 ? 0.95 : 1.05;
+				state.targetScale = Math.min(10, Math.max(1.5, state.targetScale * delta));
+
+				if (!state.isAnimating) {
+					state.isAnimating = true;
+					requestAnimationFrame(animateZoom);
+				}
+			}, { passive: false });
+
+			map._wheelParent = parent;
+		};
+
+		if (map._panzoom) {
+			setupWheel(map._panzoom);
+			return;
+		}
 
 		const setup = () => {
 			const imgW = img.naturalWidth;
@@ -59,36 +115,7 @@ import mapSrc from '../assets/map.png';
 				saveState();
 			});
 
-			let targetScale = scale;
-			let currentScale = scale;
-			let isAnimating = false;
-
-			const lerp = (start: number, end: number, t: number) => start + (end - start) * t;
-
-			const animateZoom = () => {
-				currentScale = lerp(currentScale, targetScale, 0.04);
-
-				if (Math.abs(currentScale - targetScale) > 0.001) {
-					panzoom.zoom(currentScale, { animate: false });
-					requestAnimationFrame(animateZoom);
-				} else {
-					currentScale = targetScale;
-					panzoom.zoom(targetScale, { animate: false });
-					isAnimating = false;
-					saveState();
-				}
-			};
-
-			map.parentElement?.addEventListener('wheel', (e) => {
-				e.preventDefault();
-				const delta = e.deltaY > 0 ? 0.95 : 1.05;
-				targetScale = Math.min(10, Math.max(1.5, targetScale * delta));
-
-				if (!isAnimating) {
-					isAnimating = true;
-					requestAnimationFrame(animateZoom);
-				}
-			}, { passive: false });
+			setupWheel(panzoom);
 		};
 
 		if (img.complete) {

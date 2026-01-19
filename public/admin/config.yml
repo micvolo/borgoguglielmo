@@ -6,8 +6,15 @@ backend:
   branch: main
 
 logo_url: /src/assets/logo.svg
-show_preview_links: false
-preview: false
+
+media_libraries:
+  default:
+    config:
+      max_file_size: 20480
+      slugify_filename: true
+
+editor:
+    preview: false
 
 media_folder: src/assets
 public_folder: /src/assets
