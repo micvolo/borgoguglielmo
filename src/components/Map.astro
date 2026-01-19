@@ -39,11 +39,6 @@ import mapSrc from '../assets/map.png';
 			const state = map._zoomState;
 			const lerp = (start: number, end: number, t: number) => start + (end - start) * t;
 
-			const saveState = () => {
-				const pan = panzoom.getPan();
-				sessionStorage.setItem('mapState', JSON.stringify({ x: pan.x, y: pan.y, scale: panzoom.getScale() }));
-			};
-
 			const animateZoom = () => {
 				state.currentScale = lerp(state.currentScale, state.targetScale, 0.04);
 
@@ -54,7 +49,6 @@ import mapSrc from '../assets/map.png';
 					state.currentScale = state.targetScale;
 					panzoom.zoom(state.targetScale, { animate: false });
 					state.isAnimating = false;
-					saveState();
 				}
 			};
 
@@ -83,11 +77,9 @@ import mapSrc from '../assets/map.png';
 			const winW = window.innerWidth;
 			const winH = window.innerHeight;
 
-			const savedJson = sessionStorage.getItem('mapState');
-			const saved = savedJson ? JSON.parse(savedJson) : null;
-			const scale = saved?.scale ?? 1.95;
-			const startX = saved?.x ?? -65;
-			const startY = saved?.y ?? 70;
+			const scale = 1.95;
+			const startX = -65;
+			const startY = 70;
 
 			const panzoom = Panzoom(map, {
 				maxScale: 10,
@@ -100,18 +92,12 @@ import mapSrc from '../assets/map.png';
 
 			map._panzoom = panzoom;
 
-			const saveState = () => {
-				const pan = panzoom.getPan();
-				sessionStorage.setItem('mapState', JSON.stringify({ x: pan.x, y: pan.y, scale: panzoom.getScale() }));
-			};
-
 			map.addEventListener('panzoomstart', () => {
 				map.classList.add('is-dragging');
 			});
 
 			map.addEventListener('panzoomend', () => {
 				map.classList.remove('is-dragging');
-				saveState();
 			});
 
 			setupWheel(panzoom);
@@ -127,7 +113,6 @@ import mapSrc from '../assets/map.png';
 	document.addEventListener('astro:page-load', initMap);
 
 	// Dev tool: Shift+P to log current map position and zoom
-	// Dev tool: Shift+C to clear saved state and reload
 	document.addEventListener('keydown', (e) => {
 		if (e.shiftKey && e.key === 'P') {
 			const map = document.getElementById('map') as any;
@@ -136,11 +121,6 @@ import mapSrc from '../assets/map.png';
 				const scale = map._panzoom.getScale();
 				console.log(`📍 Map position: x=${pan.x.toFixed(0)}, y=${pan.y.toFixed(0)}, scale=${scale.toFixed(2)}`);
 			}
-		}
-		if (e.shiftKey && e.key === 'C') {
-			sessionStorage.removeItem('mapState');
-			console.log('🗑️ Map state cleared, reloading...');
-			location.reload();
 		}
 	});
 
