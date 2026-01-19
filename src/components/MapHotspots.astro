@@ -26,8 +26,6 @@ const hotspots = immobili.filter((i) => i.data.hotspot?.length);
 	))}
 </svg>
 
-<div class="tooltip" id="tooltip"></div>
-
 <style>
 	.hotspots {
 		position: absolute;
@@ -58,8 +56,10 @@ const hotspots = immobili.filter((i) => i.data.hotspot?.length);
 	.hotspots polygon:active {
 		fill: rgba(0, 0, 0, 0.6);
 	}
+</style>
 
-	.tooltip {
+<style is:global>
+	.map-tooltip {
 		position: fixed;
 		background: white;
 		color: var(--charcoal);
@@ -69,18 +69,25 @@ const hotspots = immobili.filter((i) => i.data.hotspot?.length);
 		pointer-events: none;
 		opacity: 0;
 		transition: opacity 0.15s;
-		z-index: 100;
+		z-index: 1000;
 		box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 	}
 
-	.tooltip.visible {
+	.map-tooltip.visible {
 		opacity: 1;
 	}
 </style>
 
 <script>
 	const initHotspots = () => {
-		const tooltip = document.getElementById('tooltip');
+		let tooltip = document.getElementById('map-tooltip');
+		if (!tooltip) {
+			tooltip = document.createElement('div');
+			tooltip.id = 'map-tooltip';
+			tooltip.className = 'map-tooltip';
+			document.body.appendChild(tooltip);
+		}
+
 		const polygons = document.querySelectorAll('.hotspots a');
 
 		polygons.forEach((link) => {
