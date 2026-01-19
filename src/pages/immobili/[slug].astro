@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import CardLayout from '../../layouts/CardLayout.astro';
+
+export async function getStaticPaths() {
+	const immobili = await getCollection('immobili');
+	return immobili.map((immobile) => ({
+		params: { slug: immobile.slug },
+		props: { immobile },
+	}));
+}
+
+const { immobile } = Astro.props;
+const { Content } = await immobile.render();
+---
+
+<CardLayout title={immobile.data.title}>
+	<article>
+		{immobile.data.image && (
+			<div class="hero" style={`background-image: url('${immobile.data.image}')`}></div>
+		)}
+		<div class="content">
+			<h1>{immobile.data.title}</h1>
+			{immobile.data.description && <p class="description">{immobile.data.description}</p>}
+			<div class="body">
+				<Content />
+			</div>
+		</div>
+	</article>
+</CardLayout>
+
+<style>
+	article {
+		min-height: 100%;
+	}
+
+	.hero {
+		width: 100%;
+		height: 35vh;
+		background-size: cover;
+		background-position: center;
+	}
+
+	.content {
+		padding: 2rem;
+	}
+
+	h1 {
+		font-size: var(--font-size-2xl);
+		margin-bottom: 1rem;
+	}
+
+	.description {
+		font-size: var(--font-size-lg);
+		color: var(--olive);
+		margin-bottom: 2rem;
+	}
+
+	.body {
+		line-height: var(--line-height-loose);
+	}
+
+	.body :global(h2) {
+		font-size: var(--font-size-xl);
+		margin: 2rem 0 1rem;
+	}
+
+	.body :global(p) {
+		margin-bottom: 1rem;
+	}
+</style>

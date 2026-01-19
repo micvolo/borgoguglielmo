@@ -2,18 +2,53 @@
 
 backend:
   name: github
-  repo: owner/borgoguglielmo
+  repo: micvolo/borgoguglielmo
   branch: main
 
-media_folder: public/media
-public_folder: /media
+logo_url: /src/assets/logo-1.svg
+show_preview_links: false
+
+media_folder: src/assets
+public_folder: /src/assets
 
 collections:
-  - name: pages
-    label: Pages
-    folder: src/content/pages
+  - name: settings
+    label: Settings
+    files:
+      - name: site
+        label: Site Settings
+        file: src/content/settings/site.json
+        fields:
+          - { label: Site Name, name: siteName, widget: string }
+          - { label: Site Description, name: siteDescription, widget: string, required: false }
+          - label: Logo
+            name: logo
+            widget: object
+            fields:
+              - { label: Show Logo, name: show, widget: boolean, default: true }
+              - { label: Image, name: image, widget: image, required: false }
+              - { label: Alt Text, name: alt, widget: string, required: false }
+          - label: Header
+            name: header
+            widget: object
+            fields:
+              - { label: Background Color, name: background, widget: color, default: '#ffffff' }
+              - { label: Text Color, name: textColor, widget: color, default: '#1a1a1a' }
+              - { label: Border Color, name: borderColor, widget: color, default: '#e5e5e5' }
+
+  - name: immobili
+    label: Immobili
+    folder: src/content/immobili
     create: true
+    slug: '{{slug}}'
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Description, name: description, widget: text }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: Image, name: image, widget: image, required: false }
+      - label: Hotspot (polygon points x%, y%)
+        name: hotspot
+        widget: list
+        required: false
+        field: { label: Point, name: point, widget: list, field: { label: Coord, name: coord, widget: number } }
       - { label: Body, name: body, widget: markdown }
+
