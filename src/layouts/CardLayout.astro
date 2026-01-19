@@ -37,7 +37,6 @@ const { title } = Astro.props;
 		</main>
 		<div class="card-overlay" transition:name="overlay">
 			<aside class="card" transition:name="card">
-				<div class="shadow"></div>
 				<a href="/" class="close" aria-label="Chiudi">
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="M18 6L6 18M6 6l12 12"/>
@@ -229,7 +228,7 @@ const { title } = Astro.props;
 
 	.card-overlay {
 		position: fixed;
-		inset: 1rem;
+		inset: 2rem;
 		left: auto;
 		z-index: 100;
 		display: flex;
@@ -247,17 +246,7 @@ const { title } = Astro.props;
 		overflow-y: auto;
 		pointer-events: auto;
 		border-radius: 0.5rem;
-	}
-
-	.shadow {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		right: 100%;
-		width: 3rem;
-		background: linear-gradient(to left, white, transparent);
-		pointer-events: none;
-		border-radius: 0.5rem 0 0 0.5rem;
+		box-shadow: 0 0 3rem 1rem rgba(255, 255, 255, 0.9);
 	}
 
 	.close {
@@ -286,7 +275,7 @@ const { title } = Astro.props;
 
 	@media (max-width: 768px) {
 		.card-overlay {
-			inset: 0.5rem;
+			inset: 1rem;
 			left: auto;
 		}
 
