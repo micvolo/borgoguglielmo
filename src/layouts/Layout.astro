@@ -71,11 +71,11 @@ const { title, card = false } = Astro.props;
 	}
 
 	::view-transition-old(card) {
-		animation: slideOut 300ms ease-in forwards;
+		animation: fadeOut 300ms ease-out forwards;
 	}
 
 	::view-transition-new(card) {
-		animation: slideIn 300ms ease-out forwards;
+		animation: fadeIn 300ms ease-out forwards;
 	}
 
 	::view-transition-old(overlay) {
