@@ -4,7 +4,9 @@ backend:
   name: github
   repo: micvolo/borgoguglielmo
   branch: main
-
+  base_url: https://portiere.micvolo.workers.dev
+  auth_endpoint: /auth/github
+  
 logo_url: /favicon.svg
 
 media_libraries:
