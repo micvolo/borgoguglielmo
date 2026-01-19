@@ -16,12 +16,8 @@ const { Content } = await immobile.render();
 
 <Layout title={immobile.data.title} card>
 	<article>
-		{immobile.data.image && (
-			<div class="hero" style={`background-image: url('${immobile.data.image}')`}></div>
-		)}
 		<div class="content">
 			<h1>{immobile.data.title}</h1>
-			{immobile.data.description && <p class="description">{immobile.data.description}</p>}
 			<div class="body">
 				<Content />
 			</div>
@@ -34,26 +30,13 @@ const { Content } = await immobile.render();
 		min-height: 100%;
 	}
 
-	.hero {
-		width: 100%;
-		height: 35vh;
-		background-size: cover;
-		background-position: center;
-	}
-
 	.content {
 		padding: 2rem;
 	}
 
 	h1 {
 		font-size: var(--font-size-2xl);
-		margin-bottom: 1rem;
-	}
-
-	.description {
-		font-size: var(--font-size-lg);
-		color: var(--olive);
-		margin-bottom: 2rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.body {
@@ -67,5 +50,12 @@ const { Content } = await immobile.render();
 
 	.body :global(p) {
 		margin-bottom: 1rem;
+	}
+
+	.body :global(img) {
+		width: 100%;
+		height: auto;
+		border-radius: 0.5rem;
+		margin: 1.5rem 0;
 	}
 </style>

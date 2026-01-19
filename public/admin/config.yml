@@ -51,8 +51,6 @@ collections:
     slug: '{{slug}}'
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Description, name: description, widget: text, required: false }
-      - { label: Image, name: image, widget: image, required: false }
       - label: Hotspot (one point per line as "x y")
         name: hotspot
         widget: text
