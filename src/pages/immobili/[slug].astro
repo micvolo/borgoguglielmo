@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import CardLayout from '../../layouts/CardLayout.astro';
+import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
 	const immobili = await getCollection('immobili');
@@ -14,7 +14,7 @@ const { immobile } = Astro.props;
 const { Content } = await immobile.render();
 ---
 
-<CardLayout title={immobile.data.title}>
+<Layout title={immobile.data.title} card>
 	<article>
 		{immobile.data.image && (
 			<div class="hero" style={`background-image: url('${immobile.data.image}')`}></div>
@@ -27,7 +27,7 @@ const { Content } = await immobile.render();
 			</div>
 		</div>
 	</article>
-</CardLayout>
+</Layout>
 
 <style>
 	article {
