@@ -1,15 +1,19 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import { getEntry } from 'astro:content';
 import Header from '../components/Header.astro';
 import Map from '../components/Map.astro';
 
 interface Props {
-	title: string;
+	title?: string;
 	card?: boolean;
 	cardTitle?: string;
 }
 
+const settings = await getEntry('settings', 'site');
+const siteName = settings.data.siteName;
 const { title, card = false, cardTitle } = Astro.props;
+const pageTitle = title ? `${title} - ${siteName}` : siteName;
 ---
 
 <!doctype html>
@@ -19,7 +23,7 @@ const { title, card = false, cardTitle } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{pageTitle}</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Radley:ital@0;1&display=swap" rel="stylesheet">
