@@ -74,6 +74,7 @@ import mapSrc from '../assets/map.png';
 
 		if (map._panzoom) {
 			setupWheel(map._panzoom);
+			map.classList.add('is-loaded');
 			return;
 		}
 
@@ -116,6 +117,7 @@ import mapSrc from '../assets/map.png';
 			});
 
 			setupWheel(panzoom);
+			map.classList.add('is-loaded');
 		};
 
 		if (img.complete) {
@@ -138,6 +140,12 @@ import mapSrc from '../assets/map.png';
 		width: 100%;
 		height: 100%;
 		cursor: default !important;
+		opacity: 0;
+		transition: opacity 500ms ease-out;
+	}
+
+	.map-wrapper:global(.is-loaded) {
+		opacity: 1;
 	}
 
 	.map-wrapper:global(.is-dragging) {
