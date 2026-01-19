@@ -113,10 +113,15 @@ const { title, card = false } = Astro.props;
 		height: 100%;
 		background: var(--white);
 		color: var(--charcoal);
-		overflow-y: auto;
+		overflow: hidden;
 		pointer-events: auto;
 		border-radius: 0.5rem;
 		box-shadow: 0 0 5rem 4rem rgba(255, 255, 255, 0.95);
+	}
+
+	.card-content {
+		height: 100%;
+		overflow-y: auto;
 	}
 
 	.close {

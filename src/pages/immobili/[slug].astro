@@ -16,27 +16,39 @@ const { Content } = await immobile.render();
 
 <Layout title={immobile.data.title} card>
 	<article>
-		<div class="content">
+		<header>
 			<h1>{immobile.data.title}</h1>
-			<div class="body">
-				<Content />
-			</div>
+		</header>
+		<div class="content">
+			<Content />
 		</div>
 	</article>
 </Layout>
 
 <style>
 	article {
-		min-height: 100%;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 	}
 
-	.content {
-		padding: 2rem;
+	header {
+		position: sticky;
+		top: 0;
+		background: var(--white);
+		padding: 2rem 2rem 1rem;
+		z-index: 5;
+		box-shadow: 0 1rem 1rem -0.5rem rgba(255, 255, 255, 1);
 	}
 
 	h1 {
 		font-size: var(--font-size-2xl);
-		margin-bottom: 1.5rem;
+	}
+
+	.content {
+		padding: 1rem 2rem 2rem;
+		flex: 1;
+		overflow-y: auto;
 	}
 
 	.body {
