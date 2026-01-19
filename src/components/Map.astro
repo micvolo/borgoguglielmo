@@ -5,7 +5,7 @@ import mapSrc from '../assets/map.png';
 ---
 
 <div class="map-container">
-	<div class="map-wrapper" id="map" transition:persist="map" style="opacity: 0; transition: opacity 500ms ease-out;">
+	<div class="map-wrapper" id="map" transition:persist="map">
 		<Image src={mapSrc} alt="Mappa Borgo Guglielmo" quality={80} format="webp" layout="full-width" />
 		<MapHotspots />
 	</div>
@@ -116,15 +116,10 @@ import mapSrc from '../assets/map.png';
 			});
 
 			setupWheel(panzoom);
-			requestAnimationFrame(() => {
-				requestAnimationFrame(() => {
-					map.style.opacity = '1';
-				});
-			});
 		};
 
 		if (img.complete) {
-			requestAnimationFrame(setup);
+			setup();
 		} else {
 			img.onload = setup;
 		}
@@ -134,9 +129,15 @@ import mapSrc from '../assets/map.png';
 </script>
 
 <style>
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
 	.map-container {
 		position: absolute;
 		inset: 0;
+		animation: fadeIn 500ms ease-out;
 	}
 
 	.map-wrapper {
