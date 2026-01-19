@@ -233,8 +233,8 @@ const { title } = Astro.props;
 	.card-overlay {
 		position: fixed;
 		top: 4rem;
-		right: 2rem;
-		bottom: 2rem;
+		right: 4rem;
+		bottom: 4rem;
 		left: auto;
 		z-index: 100;
 		display: flex;
@@ -244,59 +244,58 @@ const { title } = Astro.props;
 
 	.card {
 		position: relative;
-		width: 50%;
-		max-width: 700px;
+		width: 60vw;
+		max-width: 900px;
 		height: 100%;
 		background: var(--white);
 		color: var(--charcoal);
-		overflow-y: auto;
+		overflow: visible;
 		pointer-events: auto;
+		border-radius: 0.5rem;
+	}
+
+	.card-content {
+		height: 100%;
+		overflow-y: auto;
 		border-radius: 0.5rem;
 	}
 
 	.shadow {
 		position: absolute;
 		pointer-events: none;
+		z-index: -1;
 	}
 
 	.shadow-top {
-		top: 0;
-		left: 0;
-		right: 0;
+		top: -2rem;
+		left: -2rem;
+		right: -2rem;
 		height: 2rem;
-		background: linear-gradient(to top, transparent, white);
-		border-radius: 0.5rem 0.5rem 0 0;
-		transform: translateY(-100%);
+		background: linear-gradient(to top, white, transparent);
 	}
 
 	.shadow-bottom {
-		bottom: 0;
-		left: 0;
-		right: 0;
+		bottom: -2rem;
+		left: -2rem;
+		right: -2rem;
 		height: 2rem;
-		background: linear-gradient(to bottom, transparent, white);
-		border-radius: 0 0 0.5rem 0.5rem;
-		transform: translateY(100%);
+		background: linear-gradient(to bottom, white, transparent);
 	}
 
 	.shadow-left {
-		top: 0;
-		bottom: 0;
-		left: 0;
+		top: -2rem;
+		bottom: -2rem;
+		left: -2rem;
 		width: 2rem;
-		background: linear-gradient(to left, transparent, white);
-		border-radius: 0.5rem 0 0 0.5rem;
-		transform: translateX(-100%);
+		background: linear-gradient(to left, white, transparent);
 	}
 
 	.shadow-right {
-		top: 0;
-		bottom: 0;
-		right: 0;
+		top: -2rem;
+		bottom: -2rem;
+		right: -2rem;
 		width: 2rem;
-		background: linear-gradient(to right, transparent, white);
-		border-radius: 0 0.5rem 0.5rem 0;
-		transform: translateX(100%);
+		background: linear-gradient(to right, white, transparent);
 	}
 
 	.close {
@@ -319,15 +318,11 @@ const { title } = Astro.props;
 		background: var(--cream);
 	}
 
-	.card-content {
-		min-height: 100%;
-	}
-
 	@media (max-width: 768px) {
 		.card-overlay {
 			top: 3.5rem;
-			right: 1rem;
-			bottom: 1rem;
+			right: 2rem;
+			bottom: 2rem;
 			left: auto;
 		}
 
