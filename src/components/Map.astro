@@ -127,6 +127,18 @@ import mapSrc from '../assets/map.png';
 
 	document.addEventListener('astro:page-load', initMap);
 
+	// Dev tool: Shift+P to log current map position and zoom
+	document.addEventListener('keydown', (e) => {
+		if (e.shiftKey && e.key === 'P') {
+			const map = document.getElementById('map') as any;
+			if (map?._panzoom) {
+				const pan = map._panzoom.getPan();
+				const scale = map._panzoom.getScale();
+				console.log(`📍 Map position: x=${pan.x.toFixed(0)}, y=${pan.y.toFixed(0)}, scale=${scale.toFixed(2)}`);
+			}
+		}
+	});
+
 	// Dev tool: Shift+H to toggle hotspot edit mode
 	let hotspotMode = false;
 	let hotspotPoints: string[] = [];
