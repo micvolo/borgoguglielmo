@@ -127,6 +127,7 @@ import mapSrc from '../assets/map.png';
 	document.addEventListener('astro:page-load', initMap);
 
 	// Dev tool: Shift+P to log current map position and zoom
+	// Dev tool: Shift+C to clear saved state and reload
 	document.addEventListener('keydown', (e) => {
 		if (e.shiftKey && e.key === 'P') {
 			const map = document.getElementById('map') as any;
@@ -135,6 +136,11 @@ import mapSrc from '../assets/map.png';
 				const scale = map._panzoom.getScale();
 				console.log(`📍 Map position: x=${pan.x.toFixed(0)}, y=${pan.y.toFixed(0)}, scale=${scale.toFixed(2)}`);
 			}
+		}
+		if (e.shiftKey && e.key === 'C') {
+			sessionStorage.removeItem('mapState');
+			console.log('🗑️ Map state cleared, reloading...');
+			location.reload();
 		}
 	});
 
