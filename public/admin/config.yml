@@ -12,7 +12,7 @@ logo_url: /favicon.svg
 media_libraries:
   default:
     config:
-      max_file_size: 20480
+      max_file_size: 20480000
       slugify_filename: true
 
 editor:
